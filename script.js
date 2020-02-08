@@ -1,13 +1,9 @@
-$(document).ready(function() {
-    M.AutoInit();
-    var lat = '';
+var lat = '';
 var lon = '';
 // var arr;
  function showlocation(){
     alert('asd');
- }
-
-
+}
     var x = document.getElementById("demo");    
     function getLocation() {
         if (navigator.geolocation) {
@@ -90,4 +86,3 @@ var lon = '';
         }
 
     }
-});
