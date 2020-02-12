@@ -69,11 +69,29 @@
 
 
 
-    <!-- <input type="button" onclick="getLocation();" value="Get Trails" />
+    <input type="button" onclick="getLocation();" value="Get Trails" />
     <p id="showData"></p>
-    <input type="text" id="state" />
-    <input type="button" onclick="getLocationState();" value="Get Trails By States" />
-    <p id="showData"></p> -->
+    <form id="form">
+      <div class="input-field col s6">
+        <select id="state" required>
+          <option value="" disabled selected>Choose your option</option>
+        </select>
+        <label>select state</label>
+        <div class="input-field col s4">
+          <input
+            id="city"
+            type="text"
+            class="validate"
+            pattern="[a-zA-Z]{3,64}"
+            required
+          />
+          <label for="city">city</label>
+        </div>
+      </div>
+      <button class=" col s2 small-btn" type="submit">submit</button>
+    </form>
+
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
