@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link
       rel="stylesheet"
      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link
@@ -13,22 +17,66 @@
       integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
       crossorigin="anonymous"
     />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
-      rel="stylesheet"
-    />
     <link rel="stylesheet" href="style.css" />
     
     <title>TITLE</title>
   </head>
   <body>
-    <input type="button" onclick="getLocation();" value="Get Trails" />
+
+    <div class="container">
+      <div class="row">
+        <div class="col m4 s12" id="weatherData">
+          <div class="carousel">
+            <a class="carousel-item" id="day1Temp"></a>
+            <a class="carousel-item" id="day2Temp"></a>
+            <a class="carousel-item" id="day3Temp"></a>
+            <a class="carousel-item" id="day4Temp"></a>
+            <a class="carousel-item" id="day5Temp"></a>
+          </div>
+        </div>
+
+        <div class="col m4 s12" id="trailData">
+          <ul class="collapsible">
+            <li>
+              <div class="collapsible-header">
+                <h4 class="trailName"></h4>
+              </div>
+              <div class="collapsible-body">
+                <p class="trailInfo">DISPLAY TRAIL DATA</p>
+                <a href="#">HIKING PROJECT URL</a>
+                <a class="waves-effect waves-light btn">Check Nearby Restaurants</a>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col m4 s12" id="foodData">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">RESTAURANT NAME</span>
+              <p>DISPLAY RESTAURANT DATA</p>
+            </div>
+            <div class="card-action">
+              <a href="#">ZOMATO URL</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+    <!-- <input type="button" onclick="getLocation();" value="Get Trails" />
     <p id="showData"></p>
     <input type="text" id="state" />
     <input type="button" onclick="getLocationState();" value="Get Trails By States" />
-    <p id="showData"></p>
+    <p id="showData"></p> -->
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="script.js"></script> 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script type="text/javascript" src="script.js"></script> 
   </body>
 </html>
