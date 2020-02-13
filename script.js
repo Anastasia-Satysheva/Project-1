@@ -271,7 +271,7 @@ form.on("submit", function(e) {
     getTrails(lat, lon);
   });
 
-  getWeatherByCity(input);
+  getWeatherByCity(str);
 
 });
 
@@ -364,10 +364,10 @@ function showPosition(position) {
   getWeatherByLocation(lat, lon);
 }
 
-function getWeatherByCity(cityName) {
+function getWeatherByCity(str) {
  
   $.ajax({
-      url: `https://api.openweathermap.org/data/2.5/weather?q=${input},US&units=imperial&APPID=abcd9257d5733a460d1691720d4f7b99`,
+      url: `https://api.openweathermap.org/data/2.5/weather?q=${str},US&units=imperial&APPID=abcd9257d5733a460d1691720d4f7b99`,
       method: "GET"
   }).then(function(response) {
       console.log(response);
