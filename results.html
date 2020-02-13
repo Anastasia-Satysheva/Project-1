@@ -61,9 +61,8 @@
           </div>
         </div>
 
-        <div class="col m4 s12" id="trailData">
-          <ul class="collapsible">
-            <li>
+        <div class="col m4 s12" >
+          <ul class="collapsible" id="trailData">
               <div class="collapsible-header">
                 <h4 class="trailName"></h4>
               </div>
@@ -72,7 +71,6 @@
                 <a href="#">HIKING PROJECT URL</a>
                 <a class="waves-effect waves-light btn">Check Nearby Restaurants</a>
               </div>
-            </li>
           </ul>
         </div>
 
@@ -90,13 +88,10 @@
       </div>
     </div>
 
-
-
-
-
-
     <input type="button" onclick="getLocation();" value="Get Trails" />
     <p id="showData"></p>
+
+<div class="row">
     <form id="form">
       <div class="input-field col s6">
         <select id="state" required>
@@ -116,9 +111,7 @@
       </div>
       <button class=" col s2 small-btn" type="submit">submit</button>
     </form>
-
-
-
+</div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

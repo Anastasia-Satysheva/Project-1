@@ -1,123 +1,3 @@
-let currentDate = moment().format('MM-DD');
-// Wrap every letter in a span
-let textWrapper = document.querySelector(".ml3");
-textWrapper.innerHTML = textWrapper.textContent.replace(
-  /\S/g,
-  "<span class='letter'>$&</span>"
-);
-
-anime
-  .timeline({ loop: true })
-  .add({
-    targets: ".ml3 .letter",
-    opacity: [0, 1],
-    easing: "easeInOutQuad",
-    duration: 2250,
-    delay: (el, i) => 150 * (i + 1)
-  })
-  .add({
-    targets: ".ml3",
-    opacity: 0,
-    duration: 1000,
-    easing: "easeOutExpo",
-    delay: 1000
-  });
-let lat = "";
-let lon = "";
-// let arr;
-function showlocation() {
-  alert("asd");
-}
-
-let x = document.getElementById("demo");
-
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
-
-function showPosition(position) {
-  lat = position.coords.latitude;
-  lon = position.coords.longitude;
-
-  const Http = new XMLHttpRequest();
-  // const url='https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=200681842-da90e5231d773b9b92835e9dc121c36e';
-  const url =
-    "https://www.hikingproject.com/data/get-trails?lat=" +
-    lat +
-    "&lon=" +
-    lon +
-    "&maxDistance=10&key=200681842-da90e5231d773b9b92835e9dc121c36e";
-  // alert(url);
-  Http.open("GET", url);
-  Http.send();
-
-  Http.onreadystatechange = e => {
-    // let trail = Http.responseText;
-
-    let trails = JSON.parse(Http.responseText);
-    let arrS = trails["success"];
-
-    let arr = trails["trails"];
-    console.log(arr.length);
-
-    // alert(arr.length);
-    if (arrS == "1" && arr.length > 0) {
-      let col = [];
-      for (let i = 0; i < arr.length; i++) {
-        for (let key in arr[i]) {
-          if (col.indexOf(key) === -1) {
-            col.push(key);
-          }
-        }
-      }
-
-      let table = document.createElement("table");
-
-      let tr = table.insertRow(-1);
-
-      for (let i = 0; i < 9; i++) {
-        if (col[i] != "id") {
-          let th = document.createElement("th");
-          th.innerHTML = col[i].toUpperCase();
-          tr.appendChild(th);
-        }
-      }
-
-      for (let i = 0; i < arr.length; i++) {
-        tr = table.insertRow(-1);
-
-        for (let j = 0; j < 9; j++) {
-          if (col[j] != "id") {
-            let tabCell = tr.insertCell(-1);
-            if (col[j] == "url") {
-              tabCell.innerHTML =
-                '<a href="' +
-                arr[i][col[j]] +
-                '" target="_blank">' +
-                arr[i][col[j]] +
-                "";
-            } else {
-              tabCell.innerHTML = arr[i][col[j]];
-            }
-          }
-        }
-      }
-
-      let divContainer = document.getElementById("showData");
-      divContainer.innerHTML = "";
-      divContainer.appendChild(table);
-    } else {
-      alert("No data for this location.");
-    }
-  };
-
-  getWeatherByLocation(lat, lon);
-}
-
 /* 
 Travis: 18750a86e1be4adb85fb042628761fbc
 
@@ -394,132 +274,89 @@ form.on("submit", function(e) {
 
 });
 
-function getWeatherByCity(cityName) {
-  
-  $.ajax({
-      url: "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + ",US&units=imperial&APPID=abcd9257d5733a460d1691720d4f7b99",
-      method: "GET"
-  }).then(function(response) {
-      console.log(response);
-      let day0IconCode = response.weather[0].icon;
-      let day0IconURL = "https://openweathermap.org/img/w/" + day0IconCode + ".png";
+var x = document.getElementById("demo");
 
-      $("#day0Date").html(currentDate);
-      $("#day0Icon").html(day0IconCode);
-      $("#day0Icon").attr('src', day0IconURL);
-      $("#day0Temp").html("Temp: " + Math.floor(response.main.temp) + " °F");
-      $("#day0Hum").html("Humidity: " + response.main.humidity + "%");
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
 
-      let cityCode = response.id;
-  
+function showPosition(position) {
+  lat = position.coords.latitude;
+  lon = position.coords.longitude;
 
-      $.ajax({
-      url: "https://api.openweathermap.org/data/2.5/forecast?id=" + cityCode + "&units=imperial&appid=abcd9257d5733a460d1691720d4f7b99",
-      method: "GET"
-      }).then(function(response) {
-          console.log(response); 
-      
-          let day1IconCode = response.list[4].weather[0].icon;
-          let day1IconURL = "https://openweathermap.org/img/w/" + day1IconCode + ".png";
-          
-          let day2IconCode = response.list[12].weather[0].icon;
-          let day2IconURL = "https://openweathermap.org/img/w/" + day2IconCode + ".png";
+  const Http = new XMLHttpRequest();
+  // const url='https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=200681842-da90e5231d773b9b92835e9dc121c36e';
+  const url =
+    "https://www.hikingproject.com/data/get-trails?lat=" +
+    lat +
+    "&lon=" +
+    lon +
+    "&maxDistance=10&key=200681842-da90e5231d773b9b92835e9dc121c36e";
+  // alert(url);
+  Http.open("GET", url);
+  Http.send();
 
-          let day3IconCode = response.list[20].weather[0].icon;
-          let day3IconURL = "https://openweathermap.org/img/w/" + day3IconCode + ".png";
+  Http.onreadystatechange = e => {
+    // var trail = Http.responseText;
 
-          let day4IconCode = response.list[28].weather[0].icon;
-          let day4IconURL = "https://openweathermap.org/img/w/" + day4IconCode + ".png";
+    var trails = JSON.parse(Http.responseText);
+    var arrS = trails["success"];
 
+    var arr = trails["trails"];
+    console.log(arr.length);
 
-          $("#day1Date").html(response.list[4].dt_txt.slice(5,10));
-          $("#day1Icon").html(day1IconCode);
-          $("#day1Icon").attr('src', day1IconURL);
-          $("#day1Temp").html("Temp: " + Math.floor(response.list[4].main.temp) + " °F");
-          $("#day1Hum").html("Humidity: " + response.list[4].main.humidity + "%");
-          
-          $("#day2Date").html(response.list[12].dt_txt.slice(5,10));
-          $("#day2Icon").html(day2IconCode);
-          $("#day2Icon").attr('src', day2IconURL);
-          $("#day2Temp").html("Temp: " + Math.floor(response.list[12].main.temp) + " °F");
-          $("#day2Hum").html("Humidity: " + response.list[12].main.humidity + "%");
+    // alert(arr.length);
+    if (arrS == "1" && arr.length > 0) {
+      var col = [];
+      for (var i = 0; i < arr.length; i++) {
+        for (var key in arr[i]) {
+          if (col.indexOf(key) === -1) {
+            col.push(key);
+          }
+        }
+      }
 
-          $("#day3Date").html(response.list[20].dt_txt.slice(5,10));
-          $("#day3Icon").html(day3IconCode);
-          $("#day3Icon").attr('src', day3IconURL);
-          $("#day3Temp").html("Temp: " + Math.floor(response.list[20].main.temp) + " °F");
-          $("#day3Hum").html("Humidity: " + response.list[20].main.humidity + "%");
+      var table = document.createElement("table");
 
-          $("#day4Date").html(response.list[28].dt_txt.slice(5,10));
-          $("#day4Icon").html(day4IconCode);
-          $("#day4Icon").attr('src', day4IconURL);
-          $("#day4Temp").html("Temp: " + Math.floor(response.list[28].main.temp) + " °F");
-          $("#day4Hum").html("Humidity: " + response.list[28].main.humidity + "%");
-      });
-  });
-};
+      var tr = table.insertRow(-1);
 
-function getWeatherByLocation(lat, lon) {
-       
-  $.ajax({
-      url: `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&APPID=abcd9257d5733a460d1691720d4f7b99`,
-      method: "GET"
-  }).then(function(response) {
-      console.log(response);
-      let day0IconCode = response.weather[0].icon;
-      let day0IconURL = "https://openweathermap.org/img/w/" + day0IconCode + ".png";
+      for (var i = 0; i < 9; i++) {
+        if (col[i] != "id") {
+          var th = document.createElement("th");
+          th.innerHTML = col[i].toUpperCase();
+          tr.appendChild(th);
+        }
+      }
 
-      $("#day0Date").html(currentDate);
-      $("#day0Icon").html(day0IconCode);
-      $("#day0Icon").attr('src', day0IconURL);
-      $("#day0Temp").html("Temp: " + Math.floor(response.main.temp) + " °F");
-      $("#day0Hum").html("Humidity: " + response.main.humidity + "%");
+      for (var i = 0; i < arr.length; i++) {
+        tr = table.insertRow(-1);
 
-      let cityCode = response.id;
-  
+        for (var j = 0; j < 9; j++) {
+          if (col[j] != "id") {
+            var tabCell = tr.insertCell(-1);
+            if (col[j] == "url") {
+              tabCell.innerHTML =
+                '<a href="' +
+                arr[i][col[j]] +
+                '" target="_blank">' +
+                arr[i][col[j]] +
+                "";
+            } else {
+              tabCell.innerHTML = arr[i][col[j]];
+            }
+          }
+        }
+      }
 
-      $.ajax({
-      url: "https://api.openweathermap.org/data/2.5/forecast?id=" + cityCode + "&units=imperial&appid=abcd9257d5733a460d1691720d4f7b99",
-      method: "GET"
-      }).then(function(response) {
-          console.log(response); 
-      
-          let day1IconCode = response.list[4].weather[0].icon;
-          let day1IconURL = "https://openweathermap.org/img/w/" + day1IconCode + ".png";
-          
-          let day2IconCode = response.list[12].weather[0].icon;
-          let day2IconURL = "https://openweathermap.org/img/w/" + day2IconCode + ".png";
-
-          let day3IconCode = response.list[20].weather[0].icon;
-          let day3IconURL = "https://openweathermap.org/img/w/" + day3IconCode + ".png";
-
-          let day4IconCode = response.list[28].weather[0].icon;
-          let day4IconURL = "https://openweathermap.org/img/w/" + day4IconCode + ".png";
-
-
-          $("#day1Date").html(response.list[4].dt_txt.slice(5,10));
-          $("#day1Icon").html(day1IconCode);
-          $("#day1Icon").attr('src', day1IconURL);
-          $("#day1Temp").html("Temp: " + Math.floor(response.list[4].main.temp) + " °F");
-          $("#day1Hum").html("Humidity: " + response.list[4].main.humidity + "%");
-          
-          $("#day2Date").html(response.list[12].dt_txt.slice(5,10));
-          $("#day2Icon").html(day2IconCode);
-          $("#day2Icon").attr('src', day2IconURL);
-          $("#day2Temp").html("Temp: " + Math.floor(response.list[12].main.temp) + " °F");
-          $("#day2Hum").html("Humidity: " + response.list[12].main.humidity + "%");
-
-          $("#day3Date").html(response.list[20].dt_txt.slice(5,10));
-          $("#day3Icon").html(day3IconCode);
-          $("#day3Icon").attr('src', day3IconURL);
-          $("#day3Temp").html("Temp: " + Math.floor(response.list[20].main.temp) + " °F");
-          $("#day3Hum").html("Humidity: " + response.list[20].main.humidity + "%");
-
-          $("#day4Date").html(response.list[28].dt_txt.slice(5,10));
-          $("#day4Icon").html(day4IconCode);
-          $("#day4Icon").attr('src', day4IconURL);
-          $("#day4Temp").html("Temp: " + Math.floor(response.list[28].main.temp) + " °F");
-          $("#day4Hum").html("Humidity: " + response.list[28].main.humidity + "%");
-      });
-  });
-};
+      var divContainer = document.getElementById("showData");
+      divContainer.innerHTML = "";
+      divContainer.appendChild(table);
+    } else {
+      alert("No data for this location.");
+    }
+  };
+}
