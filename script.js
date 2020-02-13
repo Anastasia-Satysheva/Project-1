@@ -157,15 +157,16 @@ function addToHtml(list) {
     h4.text(list[i].name);
     header.append(h4);
     a.attr("href", list[i].url);
-    a.text("Trail link");
+    a.text("Trail Link");
     foodButton.attr("onclick", "showFood(this.id)");
     foodButton.attr("id", i);
     foodButton.attr("href", "#!");
     foodButton.text("Nearby Restaurants");
 
-    trailinfo.text(`trail difficulty: ${list[i].difficulty} 
-       trail rating: ${list[i].stars}
-       trail location: ${list[i].location}`);
+    trailinfo.text(`
+      Trail Difficulty: ${list[i].difficulty} 
+      Trail Rating: ${list[i].stars}
+      Trail Location: ${list[i].location}`);
     trailsummary.text(list[i].summary);
     body
       .append(trailsummary)
@@ -270,8 +271,7 @@ form.on("submit", function(e) {
     getTrails(lat, lon);
   });
 
-  let cityName = $("#city").val();
-  getWeatherByCity(cityName);
+  getWeatherByCity(input);
 
 });
 
@@ -367,7 +367,7 @@ function showPosition(position) {
 function getWeatherByCity(cityName) {
  
   $.ajax({
-      url: "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + ",US&units=imperial&APPID=abcd9257d5733a460d1691720d4f7b99",
+      url: `https://api.openweathermap.org/data/2.5/weather?q=${input},US&units=imperial&APPID=abcd9257d5733a460d1691720d4f7b99`,
       method: "GET"
   }).then(function(response) {
       console.log(response);
