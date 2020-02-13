@@ -1,3 +1,4 @@
+let currentDate = moment().format('MM-DD');
 /* 
 Travis: 18750a86e1be4adb85fb042628761fbc
 
@@ -359,4 +360,136 @@ function showPosition(position) {
       alert("No data for this location.");
     }
   };
+
+  getWeatherByLocation(lat, lon);
 }
+
+function getWeatherByCity(cityName) {
+ 
+  $.ajax({
+      url: "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + ",US&units=imperial&APPID=abcd9257d5733a460d1691720d4f7b99",
+      method: "GET"
+  }).then(function(response) {
+      console.log(response);
+      let day0IconCode = response.weather[0].icon;
+      let day0IconURL = "https://openweathermap.org/img/w/" + day0IconCode + ".png";
+
+      $("#day0Date").html(currentDate);
+      $("#day0Icon").html(day0IconCode);
+      $("#day0Icon").attr('src', day0IconURL);
+      $("#day0Temp").html("Temp: " + Math.floor(response.main.temp) + " °F");
+      $("#day0Hum").html("Humidity: " + response.main.humidity + "%");
+
+      let cityCode = response.id;
+  
+
+      $.ajax({
+      url: "https://api.openweathermap.org/data/2.5/forecast?id=" + cityCode + "&units=imperial&appid=abcd9257d5733a460d1691720d4f7b99",
+      method: "GET"
+      }).then(function(response) {
+          console.log(response); 
+      
+          let day1IconCode = response.list[4].weather[0].icon;
+          let day1IconURL = "https://openweathermap.org/img/w/" + day1IconCode + ".png";
+          
+          let day2IconCode = response.list[12].weather[0].icon;
+          let day2IconURL = "https://openweathermap.org/img/w/" + day2IconCode + ".png";
+
+          let day3IconCode = response.list[20].weather[0].icon;
+          let day3IconURL = "https://openweathermap.org/img/w/" + day3IconCode + ".png";
+
+          let day4IconCode = response.list[28].weather[0].icon;
+          let day4IconURL = "https://openweathermap.org/img/w/" + day4IconCode + ".png";
+
+
+          $("#day1Date").html(response.list[4].dt_txt.slice(5,10));
+          $("#day1Icon").html(day1IconCode);
+          $("#day1Icon").attr('src', day1IconURL);
+          $("#day1Temp").html("Temp: " + Math.floor(response.list[4].main.temp) + " °F");
+          $("#day1Hum").html("Humidity: " + response.list[4].main.humidity + "%");
+          
+          $("#day2Date").html(response.list[12].dt_txt.slice(5,10));
+          $("#day2Icon").html(day2IconCode);
+          $("#day2Icon").attr('src', day2IconURL);
+          $("#day2Temp").html("Temp: " + Math.floor(response.list[12].main.temp) + " °F");
+          $("#day2Hum").html("Humidity: " + response.list[12].main.humidity + "%");
+
+          $("#day3Date").html(response.list[20].dt_txt.slice(5,10));
+          $("#day3Icon").html(day3IconCode);
+          $("#day3Icon").attr('src', day3IconURL);
+          $("#day3Temp").html("Temp: " + Math.floor(response.list[20].main.temp) + " °F");
+          $("#day3Hum").html("Humidity: " + response.list[20].main.humidity + "%");
+
+          $("#day4Date").html(response.list[28].dt_txt.slice(5,10));
+          $("#day4Icon").html(day4IconCode);
+          $("#day4Icon").attr('src', day4IconURL);
+          $("#day4Temp").html("Temp: " + Math.floor(response.list[28].main.temp) + " °F");
+          $("#day4Hum").html("Humidity: " + response.list[28].main.humidity + "%");
+      });
+  });
+};
+
+function getWeatherByLocation(lat,lon) {
+       
+  $.ajax({
+      url: "https://api.openweathermap.org/data/2.5/weather?lat=" + lat + "&lon=" + lon + "&units=imperial&APPID=abcd9257d5733a460d1691720d4f7b99",
+      method: "GET"
+  }).then(function(response) {
+      console.log(response);
+      let day0IconCode = response.weather[0].icon;
+      let day0IconURL = "https://openweathermap.org/img/w/" + day0IconCode + ".png";
+
+      $("#day0Date").html(currentDate);
+      $("#day0Icon").html(day0IconCode);
+      $("#day0Icon").attr('src', day0IconURL);
+      $("#day0Temp").html("Temp: " + Math.floor(response.main.temp) + " °F");
+      $("#day0Hum").html("Humidity: " + response.main.humidity + "%");
+
+      let cityCode = response.id;
+  
+
+      $.ajax({
+      url: "https://api.openweathermap.org/data/2.5/forecast?id=" + cityCode + "&units=imperial&appid=abcd9257d5733a460d1691720d4f7b99",
+      method: "GET"
+      }).then(function(response) {
+          console.log(response); 
+      
+          let day1IconCode = response.list[4].weather[0].icon;
+          let day1IconURL = "https://openweathermap.org/img/w/" + day1IconCode + ".png";
+          
+          let day2IconCode = response.list[12].weather[0].icon;
+          let day2IconURL = "https://openweathermap.org/img/w/" + day2IconCode + ".png";
+
+          let day3IconCode = response.list[20].weather[0].icon;
+          let day3IconURL = "https://openweathermap.org/img/w/" + day3IconCode + ".png";
+
+          let day4IconCode = response.list[28].weather[0].icon;
+          let day4IconURL = "https://openweathermap.org/img/w/" + day4IconCode + ".png";
+
+
+          $("#day1Date").html(response.list[4].dt_txt.slice(5,10));
+          $("#day1Icon").html(day1IconCode);
+          $("#day1Icon").attr('src', day1IconURL);
+          $("#day1Temp").html("Temp: " + Math.floor(response.list[4].main.temp) + " °F");
+          $("#day1Hum").html("Humidity: " + response.list[4].main.humidity + "%");
+          
+          $("#day2Date").html(response.list[12].dt_txt.slice(5,10));
+          $("#day2Icon").html(day2IconCode);
+          $("#day2Icon").attr('src', day2IconURL);
+          $("#day2Temp").html("Temp: " + Math.floor(response.list[12].main.temp) + " °F");
+          $("#day2Hum").html("Humidity: " + response.list[12].main.humidity + "%");
+
+          $("#day3Date").html(response.list[20].dt_txt.slice(5,10));
+          $("#day3Icon").html(day3IconCode);
+          $("#day3Icon").attr('src', day3IconURL);
+          $("#day3Temp").html("Temp: " + Math.floor(response.list[20].main.temp) + " °F");
+          $("#day3Hum").html("Humidity: " + response.list[20].main.humidity + "%");
+
+          $("#day4Date").html(response.list[28].dt_txt.slice(5,10));
+          $("#day4Icon").html(day4IconCode);
+          $("#day4Icon").attr('src', day4IconURL);
+          $("#day4Temp").html("Temp: " + Math.floor(response.list[28].main.temp) + " °F");
+          $("#day4Hum").html("Humidity: " + response.list[28].main.humidity + "%");
+      });
+  });
+};
