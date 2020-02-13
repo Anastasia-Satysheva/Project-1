@@ -67,7 +67,7 @@ const states = [
   "West Virginia",
   "Wyoming"
 ];
-var listfoods = [];
+let listfoods = [];
 
 //--------------------------------------------------add food to DOM-----------------------------------------
 /*
@@ -103,7 +103,7 @@ function showFood(el) {
   }
 }
 /*
-call this to get food list if you want or use the gloabl var listfood 
+call this to get food list if you want or use the gloabl let listfood 
 */
 function getFood(lat, lon) {
   let settings = {
@@ -268,6 +268,10 @@ form.on("submit", function(e) {
     let lon = location_suggestions[0].longitude;
     getTrails(lat, lon);
   });
+
+  let cityName = $("#city").val();
+  getWeatherByCity(cityName);
+
 });
 
 var x = document.getElementById("demo");
