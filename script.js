@@ -180,15 +180,15 @@ function addToHtml(list) {
   }
 }
 
-function getTrails(lat, long) {
-  // console.log(`lat: ${lat} long: ${long}`);
+function getTrails(lat, lon) {
+  // console.log(`lat: ${lat} lon: ${lon}`);
 
   let trailList = [];
 
   //d72c48da91ca5b7172d76a664b41aeb0 zamoto
   //https://developers.zomato.com/api/v2.1/geocode?lat=43.0678016&lon=-70.7764224
   $.get(
-    `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${long}&maxDistance=10&key=200681842-da90e5231d773b9b92835e9dc121c36e`,
+    `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lon}&maxDistance=10&key=200681842-da90e5231d773b9b92835e9dc121c36e`,
     function({ trails }) {
       //longitude: -118.7342
       // latitude: 36.5966
