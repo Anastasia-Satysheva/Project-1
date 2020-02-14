@@ -1,13 +1,9 @@
-/*yo hey hope this works */
-
 .landingpic {
     background-image: url('assets/images/landingpage.jpeg');
     background-color: rgba(255, 255, 255, 0.4);
     background-blend-mode: lighten;
   background-size: 100% auto ;
   background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
 }
 .collapsible-header{
     background-color: #637462;
@@ -52,7 +48,9 @@
             background-position: 0 50%;
         }
     }
-
+.container{
+    text-align: center;
+}
 .ml3 {
     font-weight: 900;
     font-size: 3.5em;
