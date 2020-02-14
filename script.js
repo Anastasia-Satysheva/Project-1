@@ -158,6 +158,7 @@ function addToHtml(list) {
     header.append(h4);
     a.attr("href", list[i].url);
     a.text("Trail Link");
+    a.attr("class", "btn")
     foodButton.attr("onclick", "showFood(this.id)");
     foodButton.attr("id", i);
     foodButton.attr("href", "#!");
@@ -275,8 +276,6 @@ form.on("submit", function(e) {
 
 });
 
-var x = document.getElementById("demo");
-
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
@@ -291,8 +290,7 @@ function showPosition(position) {
 
 getTrails(lat, lon);
 
-
-  getWeatherByLocation(lat, lon);
+getWeatherByLocation(lat, lon);
 }
 
 function getWeatherByCity(str) {
