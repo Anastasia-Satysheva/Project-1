@@ -301,7 +301,7 @@ function showPosition(position) {
   lon = position.coords.longitude;
 getTrails(lat,lon);
 
-  getWeatherByLocation(lat, lon);
+  getWeatherByLocation(lat,lon);
 }
 
 function getWeatherByCity(str) {
