@@ -1,4 +1,3 @@
-/*yo hey hope this works */
 header {
   color: #ffffff;
   height: 90px;
@@ -126,4 +125,18 @@ header {
   100% {
     background-position: 0 0;
   }
+}
+
+.trailBody {
+  background: #454955;
+  color: white;
+}
+
+.trailHead {
+  background: #193C0D;
+  color: white;
+}
+
+.colorBtns {
+  background: #637462;
 }

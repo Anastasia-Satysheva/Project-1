@@ -96,11 +96,11 @@ function showFood(el) {
     span.text(list[i].name);
     a.text(list[i].name);
     a.attr("href", list[i].url);
-    foodDesc.text(`cuisine: ${list[i].food}`);
+    foodDesc.text(`Cuisine: ${list[i].food}`);
     foodRating.text(
-      `rating: ${list[i].rating} votes: ${list[i].votes} ${list[i].text}`
+      `Rating: ${list[i].rating} ${list[i].text} Votes: ${list[i].votes}`
     );
-    foodAddr.text(`address: ${list[i].address}`);
+    foodAddr.text(`Address: ${list[i].address}`);
 
     content
       .append(span)
@@ -160,10 +160,12 @@ function addToHtml(list) {
     let header = $("<div>");
     let body = $("<div>");
     let trailsummary = $("<p>");
-    let trailinfo = $("<p>");
-    foodButton.attr("class", "waves-effect waves-light btn");
-    header.attr("class", "collapsible-header");
-    body.attr("class", "collapsible-body");
+    let trailDiff = $("<p>");
+    let trailRate = $("<p>");
+    let trailLoc = $("<p>");
+    foodButton.attr("class", "waves-effect waves-light btn right colorBtns");
+    header.attr("class", "collapsible-header trailHead");
+    body.attr("class", "collapsible-body trailBody");
     h4.text(list[i].name);
     header.append(h4);
     a.attr("href", list[i].url);
@@ -173,14 +175,13 @@ function addToHtml(list) {
     foodButton.attr("href", "#!");
     foodButton.text("Nearby Restaurants");
 
-    trailinfo.text(`
-      Trail Difficulty: ${list[i].difficulty} 
-      Trail Rating: ${list[i].stars}
-      Trail Location: ${list[i].location}`);
+    trailDiff.text(`Trail Difficulty: ${list[i].difficulty}`);
+    trailRate.text(`Trail Rating: ${list[i].stars}`);
+    trailLoc.text(`Trail Location: ${list[i].location}`);
     trailsummary.text(list[i].summary);
     body
       .append(trailsummary)
-      .append(trailinfo)
+      .append(trailDiff, trailRate, trailLoc)
       .append(a)
       .append(foodButton);
 
@@ -190,15 +191,15 @@ function addToHtml(list) {
   }
 }
 
-function getTrails(lat, long) {
-  // console.log(`lat: ${lat} long: ${long}`);
+function getTrails(lat, lon) {
+  // console.log(`lat: ${lat} lon: ${lon}`);
 
   let trailList = [];
 
   //d72c48da91ca5b7172d76a664b41aeb0 zamoto
   //https://developers.zomato.com/api/v2.1/geocode?lat=43.0678016&lon=-70.7764224
   $.get(
-    `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${long}&maxDistance=10&key=200681842-da90e5231d773b9b92835e9dc121c36e`,
+    `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lon}&maxDistance=10&key=200681842-da90e5231d773b9b92835e9dc121c36e`,
     function({ trails }) {
       //longitude: -118.7342
       // latitude: 36.5966
@@ -282,7 +283,7 @@ form.on("submit", function(e) {
     getTrails(lat, lon);
   });
 
-  getWeatherByCity(input);
+  getWeatherByCity(str);
 });
 
 var x = document.getElementById("demo");
@@ -374,12 +375,12 @@ function showPosition(position) {
   getWeatherByLocation(lat, lon);
 }
 
-function getWeatherByCity(cityName) {
+function getWeatherByCity(str) {
   $.ajax({
-    url: `https://api.openweathermap.org/data/2.5/weather?q=${input},US&units=imperial&APPID=abcd9257d5733a460d1691720d4f7b99`,
+    url: `https://api.openweathermap.org/data/2.5/weather?q=${str},US&units=imperial&APPID=abcd9257d5733a460d1691720d4f7b99`,
     method: "GET"
   }).then(function(response) {
-    console.log(response);
+    
     let day0IconCode = response.weather[0].icon;
     let day0IconURL =
       "https://openweathermap.org/img/w/" + day0IconCode + ".png";
@@ -393,13 +394,10 @@ function getWeatherByCity(cityName) {
     let cityCode = response.id;
 
     $.ajax({
-      url:
-        "https://api.openweathermap.org/data/2.5/forecast?id=" +
-        cityCode +
-        "&units=imperial&appid=abcd9257d5733a460d1691720d4f7b99",
+      url: `https://api.openweathermap.org/data/2.5/forecast?id=${cityCode}&units=imperial&appid=abcd9257d5733a460d1691720d4f7b99`,
       method: "GET"
     }).then(function(response) {
-      console.log(response);
+      
 
       let day1IconCode = response.list[4].weather[0].icon;
       let day1IconURL =
@@ -455,14 +453,10 @@ function getWeatherByCity(cityName) {
 function getWeatherByLocation(lat, lon) {
   $.ajax({
     url:
-      "https://api.openweathermap.org/data/2.5/weather?lat=" +
-      lat +
-      "&lon=" +
-      lon +
-      "&units=imperial&APPID=abcd9257d5733a460d1691720d4f7b99",
+      `https://api.openweathermap.org/data/2.5/weather?lat="${lat}&lon=${lon}&units=imperial&APPID=abcd9257d5733a460d1691720d4f7b99`,
     method: "GET"
   }).then(function(response) {
-    console.log(response);
+    
     let day0IconCode = response.weather[0].icon;
     let day0IconURL =
       "https://openweathermap.org/img/w/" + day0IconCode + ".png";
@@ -476,13 +470,10 @@ function getWeatherByLocation(lat, lon) {
     let cityCode = response.id;
 
     $.ajax({
-      url:
-        "https://api.openweathermap.org/data/2.5/forecast?id=" +
-        cityCode +
-        "&units=imperial&appid=abcd9257d5733a460d1691720d4f7b99",
+      url: `https://api.openweathermap.org/data/2.5/forecast?id=${cityCode}&units=imperial&appid=abcd9257d5733a460d1691720d4f7b99`,
       method: "GET"
     }).then(function(response) {
-      console.log(response);
+      
 
       let day1IconCode = response.list[4].weather[0].icon;
       let day1IconURL =
