@@ -168,6 +168,7 @@ function addToHtml(list) {
     header.append(h4);
     a.attr("href", list[i].url);
     a.text("Trail Link");
+    a.attr("class", "btn")
     foodButton.attr("onclick", "showFood(this.id)");
     foodButton.attr("id", i);
     foodButton.attr("href", "#!");
@@ -190,15 +191,15 @@ function addToHtml(list) {
   }
 }
 
-function getTrails(lat, long) {
-  // console.log(`lat: ${lat} long: ${long}`);
+function getTrails(lat, lon) {
+  // console.log(`lat: ${lat} lon: ${lon}`);
 
   let trailList = [];
 
   //d72c48da91ca5b7172d76a664b41aeb0 zamoto
   //https://developers.zomato.com/api/v2.1/geocode?lat=43.0678016&lon=-70.7764224
   $.get(
-    `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${long}&maxDistance=10&key=200681842-da90e5231d773b9b92835e9dc121c36e`,
+    `https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lon}&maxDistance=10&key=200681842-da90e5231d773b9b92835e9dc121c36e`,
     function({ trails }) {
       //longitude: -118.7342
       // latitude: 36.5966
@@ -282,10 +283,8 @@ form.on("submit", function(e) {
     getTrails(lat, lon);
   });
 
-  getWeatherByCity(input);
+  getWeatherByCity(str);
 });
-
-var x = document.getElementById("demo");
 
 function getLocation() {
   if (navigator.geolocation) {
@@ -299,85 +298,16 @@ function showPosition(position) {
   lat = position.coords.latitude;
   lon = position.coords.longitude;
 
-  const Http = new XMLHttpRequest();
-  // const url='https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=200681842-da90e5231d773b9b92835e9dc121c36e';
-  const url =
-    "https://www.hikingproject.com/data/get-trails?lat=" +
-    lat +
-    "&lon=" +
-    lon +
-    "&maxDistance=10&key=200681842-da90e5231d773b9b92835e9dc121c36e";
-  // alert(url);
-  Http.open("GET", url);
-  Http.send();
+getTrails(lat, lon);
 
-  Http.onreadystatechange = e => {
-    // var trail = Http.responseText;
-
-    var trails = JSON.parse(Http.responseText);
-    var arrS = trails["success"];
-
-    var arr = trails["trails"];
-    console.log(arr.length);
-
-    // alert(arr.length);
-    if (arrS == "1" && arr.length > 0) {
-      var col = [];
-      for (var i = 0; i < arr.length; i++) {
-        for (var key in arr[i]) {
-          if (col.indexOf(key) === -1) {
-            col.push(key);
-          }
-        }
-      }
-
-      var table = document.createElement("table");
-
-      var tr = table.insertRow(-1);
-
-      for (var i = 0; i < 9; i++) {
-        if (col[i] != "id") {
-          var th = document.createElement("th");
-          th.innerHTML = col[i].toUpperCase();
-          tr.appendChild(th);
-        }
-      }
-
-      for (var i = 0; i < arr.length; i++) {
-        tr = table.insertRow(-1);
-
-        for (var j = 0; j < 9; j++) {
-          if (col[j] != "id") {
-            var tabCell = tr.insertCell(-1);
-            if (col[j] == "url") {
-              tabCell.innerHTML =
-                '<a href="' +
-                arr[i][col[j]] +
-                '" target="_blank">' +
-                arr[i][col[j]] +
-                "";
-            } else {
-              tabCell.innerHTML = arr[i][col[j]];
-            }
-          }
-        }
-      }
-
-      var divContainer = document.getElementById("showData");
-      divContainer.innerHTML = "";
-      divContainer.appendChild(table);
-    } else {
-      alert("No data for this location.");
-    }
-  };
-
-  getWeatherByLocation(lat, lon);
+getWeatherByLocation(lat, lon);
 }
 
-function getWeatherByCity(cityName) {
+function getWeatherByCity(str) {
+ 
   $.ajax({
-    url: `https://api.openweathermap.org/data/2.5/weather?q=${input},US&units=imperial&APPID=abcd9257d5733a460d1691720d4f7b99`,
-    method: "GET"
+      url: `https://api.openweathermap.org/data/2.5/weather?q=${str},US&units=imperial&APPID=abcd9257d5733a460d1691720d4f7b99`,
+      method: "GET"
   }).then(function(response) {
     console.log(response);
     let day0IconCode = response.weather[0].icon;

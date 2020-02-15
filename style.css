@@ -1,4 +1,3 @@
-/*yo hey hope this works */
 header {
   color: #ffffff;
   height: 90px;
@@ -8,9 +7,11 @@ header {
 .nav-wrapper {
   background-image: linear-gradient(-50deg, #193c0d 50%, #637462 50%);
 }
+
 .tn-bg {
   background-color: #193c0d;
 }
+
 .tn-bg-link {
   background-color: #454955;
 }
@@ -21,9 +22,30 @@ header {
   background-blend-mode: lighten;
   background-size: 100% auto;
   background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
 }
+
+.collapsible-header{
+    background-color: #637462;
+    border-bottom: 1px solid#193C0D;
+}
+
+.input-field.col label{
+    color: #000;
+}
+
+.btn{
+    background-color: #193C0D;
+}
+
+
+.active{
+    color: black;
+}
+
+.waves-effect input[type="button"], .waves-effect input[type="reset"], .waves-effect input[type="submit"] {
+    color: white
+}
+
 .animation {
   width: 100%;
   height: 100vh;
@@ -43,6 +65,10 @@ header {
   }
   100% {
     background-position: 0 50%;
+    }
+  
+.container{
+    text-align: center;
   }
 }
 
