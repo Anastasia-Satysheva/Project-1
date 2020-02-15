@@ -7,6 +7,27 @@ header {
 .nav-wrapper {
   background-image: linear-gradient(-50deg, #193c0d 50%, #637462 50%);
 }
+
+.tn-bg {
+  background-color: #193c0d;
+}
+
+.tn-bg-link {
+  background-color: #454955;
+}
+
+.landingpic {
+  background-image: url("assets/images/landingpage.jpeg");
+  background-color: rgba(255, 255, 255, 0.4);
+  background-blend-mode: lighten;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+
+.collapsible-header{
+    background-color: #637462;
+    border-bottom: 1px solid#193C0D;
+}
 .tn-bg {
   background-color: #193c0d;
 }
@@ -33,6 +54,20 @@ header {
   display: block;
 }
 
+.waves-effect input[type="button"], .waves-effect input[type="reset"], .waves-effect input[type="submit"] {
+    color: white
+}
+
+.animation {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(-45deg, #ee7752, #748e54, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  position: relative;
+  animation: change 7s ease-in-out infinite;
+  display: block;
+}
+
 @keyframes change {
   0% {
     background-position: 0 50%;
@@ -43,6 +78,10 @@ header {
   100% {
     background-position: 0 50%;
   }
+  
+}
+.container{
+  text-align: center;
 }
 
 .ml3 {
