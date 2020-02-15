@@ -254,7 +254,7 @@ $("#city").keyup(function(event) {
 });
 form.on("submit", function(e) {
   e.preventDefault();
-  weatherdiv.empty();
+  // weatherdiv.empty();
   fooddiv.empty();
   trailUl.empty();
   if (listfoods.length > 0) {
@@ -299,17 +299,17 @@ function getLocation() {
 function showPosition(position) {
   lat = position.coords.latitude;
   lon = position.coords.longitude;
-getTrails(lat,lon);
+  getTrails(lat,lon);
 
   getWeatherByLocation(lat,lon);
 }
 
 function getWeatherByCity(str) {
   $.ajax({
-    url: `https://api.openweathermap.org/data/2.5/weather?q=${str},US&units=imperial&APPID=abcd9257d5733a460d1691720d4f7b99`,
+    url: `https://api.openweathermap.org/data/2.5/weather?q=${str},US&units=imperial&APPID=508709c2441fb673a7b65b4044c1ad6d`,
     method: "GET"
   }).then(function(response) {
-    
+
     let day0IconCode = response.weather[0].icon;
     let day0IconURL =
       "https://openweathermap.org/img/w/" + day0IconCode + ".png";
@@ -323,7 +323,7 @@ function getWeatherByCity(str) {
     let cityCode = response.id;
 
     $.ajax({
-      url: `https://api.openweathermap.org/data/2.5/forecast?id=${cityCode}&units=imperial&appid=abcd9257d5733a460d1691720d4f7b99`,
+      url: `https://api.openweathermap.org/data/2.5/forecast?id=${cityCode}&units=imperial&appid=508709c2441fb673a7b65b4044c1ad6d`,
       method: "GET"
     }).then(function(response) {
       
@@ -382,7 +382,7 @@ function getWeatherByCity(str) {
 function getWeatherByLocation(lat, lon) {
   $.ajax({
     url:
-      `https://api.openweathermap.org/data/2.5/weather?lat="${lat}&lon=${lon}&units=imperial&APPID=abcd9257d5733a460d1691720d4f7b99`,
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&APPID=508709c2441fb673a7b65b4044c1ad6d`,
     method: "GET"
   }).then(function(response) {
     
@@ -399,7 +399,7 @@ function getWeatherByLocation(lat, lon) {
     let cityCode = response.id;
 
     $.ajax({
-      url: `https://api.openweathermap.org/data/2.5/forecast?id=${cityCode}&units=imperial&appid=abcd9257d5733a460d1691720d4f7b99`,
+      url: `https://api.openweathermap.org/data/2.5/forecast?id=${cityCode}&units=imperial&appid=508709c2441fb673a7b65b4044c1ad6d`,
       method: "GET"
     }).then(function(response) {
       
