@@ -15,31 +15,41 @@
 </head>
 
 <body class="animation">
-<img src="logo.png">
-  <div class="row">
-    <form id="form">
-      <div class="input-field col s12 m4">
-        <select id="state" required>
-          <option value="" disabled selected>Choose a State</option>
-        </select>
-        <label>Select State</label>
+  <header class="row "> 
+    <div id="modal1" class="modal">
+      <div class="modal-content">
+        <form id="form" class="row">
+          <div class="input-field  col s12 m4">
+            <select id="state" required>
+              <option value="" disabled selected>Choose a State</option>
+            </select>
+            <label>Select State</label>
+          </div>
+          <div class="input-field col s12 m2">
+            <input id="city" type="text" class="validate" pattern="[a-zA-Z]{3,64}" required />
+            <label for="city">City Name</label>
+          </div>
+          <div class="col s2 m2">
+            <button class=" waves-effect waves-light btn-small" type="submit">Submit</button>
+          </div>
+        </form>
       </div>
-      <div class="input-field col s12 m4">
-        <input id="city" type="text" class="validate" pattern="[a-zA-Z]{3,64}" required />
-        <label for="city">City Name</label>
+    </div>
+    <nav>
+      <div class="nav-wrapper">
+        <a class="brand-logo center">Hiking & Hops</a>
+        <div class="left ">
+          <button data-target="modal1" class="waves-effect waves-light  left-align btn modal-trigger">
+            Search By City</button>
+        </div>
+        <div class="right">
+          <button class=" waves-effect waves-light btn-small" onclick="getLocation();">Find Trails Near Me</button>
+        </div>
       </div>
-      <div>
-        <button class="col xs12 m1 waves-effect waves-light btn" type="submit">Submit</button>
-      </div>
-      <div class="col m1">
-        <p class="or">OR</p>
-      </div>
-      <div>
-        <input class="col xs12 m2 waves-effect waves-light btn geoBtn" type="button" onclick="getLocation();" value="Find Trails Near Me"></input>
-        <p id="showData"></p>
-      </div>
-    </form>
-  </div>
+    </nav>
+  
+  </header>
+
 
 
 
